@@ -1,0 +1,3 @@
+[submodule "OPENEMS_microstripAisler6Lay/CTB"]
+	path = OPENEMS_microstripAisler6Lay/CTB
+	url = https://github.com/thliebig/CTB
