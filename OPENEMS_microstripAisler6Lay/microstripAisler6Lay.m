@@ -1,10 +1,8 @@
-% CMBLINE6GTABBED OpenEMS sim. script: Tunable bandpass filter
+% microstripAisler6Lay OpenEMS sim. script: Microstrip transmission line
 %
-%   Simulates a 3-6GHz tunable bandpass filter in a classical combline filter
-%   configuration on an AISLER 6Layer HD stackup
-%
-%   Number of ports:  17
-%   Simulation time:  6min avg. per port
+%   Simulates simple microstrip line configuration on an AISLER 6Layer HD stackup
+%   Number of ports:  2
+%   Simulation time:  <10min
 %
 % BSD 2-Clause License
 % Copyright (c) 2023, Tobias Ammann
@@ -40,7 +38,7 @@ function [port, mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, excitePort
 
   writeFieldDumps = 1;
 
-  lossySubstrate = 1;
+  lossySubstrate = 0;
   lossyCondSheet = 1;
 
   % Output and Debug

@@ -2,9 +2,9 @@ clear; clc;
 addpath([pwd, filesep, 'CTB']);
 addpath('../');
 
-fNameRes = 'sim_microstripAisler6Lay_subCond_losses';
+%fNameRes = 'sim_microstripAisler6Lay_subCond_losses';
 %fNameRes = 'sim_microstripAisler6Lay_sub_losses';
-%fNameRes = 'sim_microstripAisler6Lay_cond_losses';
+fNameRes = 'sim_microstripAisler6Lay_cond_losses';
 %fNameRes = 'sim_microstripAisler6Lay_no_losses';
 fNameAddTimestemp = false;
 
@@ -20,9 +20,9 @@ viewGeom = 0;
 
 modelDesc = {'Microstrip line with via fence on Aisler 6 layer HD stackup',...
              'Line length = combLineTabbed6G_2xthru (54.2mm) - SMA_Rosenbergerv2 fixture (28.9mm) = 23.5mm',...
-             'Substrate and Conductor losses'};
+             %'Substrate and Conductor losses'};
              %'Substrate losses only'};
-             %'Conductor losses only'};
+             'Conductor losses only'};
              %'No losses'};
 
 % ------------------------------------------------------------------------------

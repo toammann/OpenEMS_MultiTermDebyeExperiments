@@ -1,13 +1,10 @@
- 
-
-
-Hello,
+# Experiments with openEMS and Multi-Term-Debye/Djordjevic-Sarkar Models
 
 in the last weeks I took a closer look at substrate losses. More specifically the Debye and Djordjevic-Sarkar [1] models. I think this is a good point to share the results I have so far.
 
 The Djordjevic-Sarkar model was suggested by @biergazi in the context of my [Microstrip to SMA transition model](https://github.com/thliebig/openEMS-Project/discussions/88). @VolkerMuehlhaus has opened a discussion thread for [wideband dielectric models](https://github.com/thliebig/openEMS-Project/discussions/99) where he published some simulations in Sonnet for comparison to openEMS. 
 
-The Djordjevic-Sarkar was originally developed for FR4-type materials based on measured data. The idea is to have epsilon'' (imaginary part) approximately constant between two corner frequencies $\omega_1$ = 10^m1 (lower limit) and  $\omega_2$  = 10^m2 (upper limit). With this assumption it is possible to create a wide band model with only one epsilonR, tand pair at a single frequency. The model is implemented in several commercial simulators (CST, HFSS, Simberian). According to multiple sources this model works well for materials with an almost constant loss tangent (very common for PCB materials). The Djordjevic model is roughly speaking a Debye model with an infinite number of terms, but it can be approximated by a finite number of poles. With some math it is possible to solve for the unknowns by choosing an appropriate number of Terms. In a second step the Debye model can be (approximately) converted into the openEMS Lorentz model as defined in openEMS
+The Djordjevic-Sarkar was originally developed for FR4-type materials based on measured data. The idea is to have epsilon'' (imaginary part) approximately constant between two corner frequencies $\omega_1 = 10^{m_1}$ (lower limit) and  $\omega_2  = 10^{m_2}$ (upper limit). With this assumption it is possible to create a wide band model with only one epsilonR, tand pair at a single frequency. The model is implemented in several commercial simulators (CST, HFSS, Simberian). According to multiple sources this model works well for materials with an almost constant loss tangent (very common for PCB materials). The Djordjevic model is roughly speaking a Debye model with an infinite number of terms, but it can be approximated by a finite number of poles. With some math it is possible to solve for the unknowns by choosing an appropriate number of Terms. In a second step the Debye model can be (approximately) converted into the openEMS Lorentz model as defined in openEMS
 
 ## Motivation
 
@@ -79,7 +76,9 @@ The output of the simulation model for the 4 test cases can be plotted in one gr
 <p align = "center"><img src="./figures/meas_vs_sim_s21.png" alt="fig_sim_model" width="700"></p>
 <p align = "center">Figure 4: Simulation Results - Transmission</p>
 
-The substrate and conductor losses were added sequentially. For comparison the measured transmission is also included. We can see, that the simulation has to low loss. Even when considering conductor losses by `AddCondSheet()` and a wide band model for the substrates. I think that the conductor losses are probably not treated well. Copper roughness is not included.
+The substrate and conductor losses were added sequentially. For comparison the measured transmission is also included. We can see, that the simulation has to low losses. Even when  conductor losses are considered by `AddCondSheet()` and a wide band model for the substrates. I think that the conductor losses are probably not treated well. Copper roughness is not included. This is in my experience required. Any opinions?
+
+It would be nice to have a simulation of a commercial simulator for comparison.
 
 For completeness here is the plot for S11.
 
@@ -95,7 +94,6 @@ For completeness here is the plot for S11.
 
 ## References
 [1] Djordjevic, Antonije R., et al. "Wideband frequency-domain characterization of FR-4 and time-domain causality." IEEE Transactions on electromagnetic compatibility 43.4 (2001): 662-667.
-
 
 ## Link to model
 Please find the code and measured touchstone files in my repository:

@@ -8,8 +8,8 @@
   </FDTD>
   <ContinuousStructure CoordSystem="0">
     <Properties>
-      <LorentzMaterial Name="Prepreg_1080_Panasonic-R-1551W">
-        <Property Epsilon="4.17364582420392" Kappa="0" EpsilonPlasmaFrequency="74369295162.4362" EpsilonLorPoleFrequency="503292121044.87" EpsilonRelaxTime="1e-20" EpsilonPlasmaFrequency_2="71112214319.2213" EpsilonLorPoleFrequency_2="503292121044.87" EpsilonRelaxTime_2="1e-19" EpsilonPlasmaFrequency_3="71278322743.4486" EpsilonLorPoleFrequency_3="503292121044.87" EpsilonRelaxTime_3="1e-18" EpsilonPlasmaFrequency_4="71089830126.9321" EpsilonLorPoleFrequency_4="503292121044.87" EpsilonRelaxTime_4="1e-17" EpsilonPlasmaFrequency_5="71673619456.2863" EpsilonLorPoleFrequency_5="503292121044.87" EpsilonRelaxTime_5="1e-16" EpsilonPlasmaFrequency_6="69811136907.6928" EpsilonLorPoleFrequency_6="503292121044.87" EpsilonRelaxTime_6="1e-15" EpsilonPlasmaFrequency_7="75553843041.5492" EpsilonLorPoleFrequency_7="503292121044.87" EpsilonRelaxTime_7="1e-14" EpsilonPlasmaFrequency_8="48475070707.8733" EpsilonLorPoleFrequency_8="503292121044.87" EpsilonRelaxTime_8="1e-13">
+      <Material Name="Prepreg_1080_Panasonic-R-1551W">
+        <Property Epsilon="4.3" Mue="1">
         </Property>
         <Primitives>
           <Box Priority="1">
@@ -19,9 +19,9 @@
             </P2>
           </Box>
         </Primitives>
-      </LorentzMaterial>
-      <LorentzMaterial Name="Core_7628_Panasonic-R-1566W">
-        <Property Epsilon="4.39204679475421" Kappa="0" EpsilonPlasmaFrequency="93004934643.1911" EpsilonLorPoleFrequency="503292121044.87" EpsilonRelaxTime="1e-20" EpsilonPlasmaFrequency_2="88931686533.3475" EpsilonLorPoleFrequency_2="503292121044.87" EpsilonRelaxTime_2="1e-19" EpsilonPlasmaFrequency_3="89139418811.9068" EpsilonLorPoleFrequency_3="503292121044.87" EpsilonRelaxTime_3="1e-18" EpsilonPlasmaFrequency_4="88903693255.5256" EpsilonLorPoleFrequency_4="503292121044.87" EpsilonRelaxTime_4="1e-17" EpsilonPlasmaFrequency_5="89633769939.7726" EpsilonLorPoleFrequency_5="503292121044.87" EpsilonRelaxTime_5="1e-16" EpsilonPlasmaFrequency_6="87304581968.7468" EpsilonLorPoleFrequency_6="503292121044.87" EpsilonRelaxTime_6="1e-15" EpsilonPlasmaFrequency_7="94486309420.7523" EpsilonLorPoleFrequency_7="503292121044.87" EpsilonRelaxTime_7="1e-14" EpsilonPlasmaFrequency_8="60622072229.7098" EpsilonLorPoleFrequency_8="503292121044.87" EpsilonRelaxTime_8="1e-13">
+      </Material>
+      <Material Name="Core_7628_Panasonic-R-1566W">
+        <Property Epsilon="4.6" Mue="1">
         </Property>
         <Primitives>
           <Box Priority="1">
@@ -31,7 +31,7 @@
             </P2>
           </Box>
         </Primitives>
-      </LorentzMaterial>
+      </Material>
       <Material Name="CombinedEpsR">
         <Property Epsilon="4.4565727796402" Mue="1" Kappa="0.04">
         </Property>
