@@ -12,11 +12,16 @@ freq = linspace(0.1e9, 20e9, 1001);
 
 nPorts = 2;
 
-%ports2Excite = 1;
-ports2Excite = 1:nPorts;
+ports2Excite = 1;
+%ports2Excite = 1:nPorts;
+
+useSymmetry = 1;
+
+lossySubstrate = 1;
+lossyCondSheet = 0;
 
 runSim = 1;
-viewGeom = 0;
+viewGeom = 1;
 
 modelDesc = {'Microstrip line with via fence on Aisler 6 layer HD stackup',...
              'Line length = combLineTabbed6G_2xthru (54.2mm) - SMA_Rosenbergerv2 fixture (28.9mm) = 23.5mm',...
@@ -42,7 +47,7 @@ for i=1:length(ports2Excite)
   fNameCSX = sprintf('csx_excite_p%d.xml', ports2Excite(i));
 
   % Run simulation
-  [ports(:, ports2Excite(i)), mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, ports2Excite(i), freq, runSim, viewGeom);
+  [ports(:, ports2Excite(i)), mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, ports2Excite(i), freq, lossySubstrate, lossyCondSheet, runSim, viewGeom);
 
   % Evaluate port information
   ports(:, ports2Excite(i)) = calcPort(ports(:, ports2Excite(i)), pathSim, freq, 'RefImpedance', 50);
@@ -61,9 +66,6 @@ dur = toc(t);
 % - Plot
 % -
 % ------------------------------------------------------------------------------
-
-close all;
-
 
 figure;
 hold on;
@@ -90,6 +92,8 @@ xlabel('frequency (GHz) \rightarrow','FontSize',12);
 % - Write result file
 % -
 % ------------------------------------------------------------------------------
+
+if (length(ports2Excite) < nPorts), return; endif;
 
 cMpVal = struct2cell(mp);
 cMpNames = fieldnames(mp);

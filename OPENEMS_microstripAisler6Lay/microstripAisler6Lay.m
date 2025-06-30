@@ -28,7 +28,7 @@
 % OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 % OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-function [port, mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, excitePortN, freq, runSim, viewGeom)
+function [port, mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, excitePortN, freq, lossySubstrate, lossyCondSheet, runSim, viewGeom)
 
   % ----------------------------------------------------------------------------
   % -
@@ -38,9 +38,6 @@ function [port, mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, excitePort
 
   writeFieldDumps = 1;
 
-  lossySubstrate = 0;
-  lossyCondSheet = 1;
-
   % Output and Debug
   smoothMesh = 1;
   skipFixed = 1;
@@ -49,6 +46,8 @@ function [port, mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, excitePort
   fStart = min(freq);
   fStop  = max(freq);
   energyEndCritera = -50; %dB
+  %energyEndCritera = -30; %dB
+
 
   meshResEdge = 0.04; %0.02;    % Mesh resolution around microstip edges
   meshMinResFix = meshResEdge;  % Minimum resolution of fixed mesh lines
@@ -152,16 +151,18 @@ function [port, mpDesc, mp] = microstripAisler6Lay(pathSim, fNameCSX, excitePort
   matCombined.epsR =  matPrePreg1080.epsR*matCore7628.epsR*(h1+h2)/(h1*matCore7628.epsR + h2*matPrePreg1080.epsR);
 
   if lossySubstrate
-    mMin = 4;
-    %calcDjordjevicSarkarApprox(matPrePreg1080.epsR,  matPrePreg1080.tand, 6e9, 200e9, 'f1', 10^mMin/(2*pi), 'plotEn')
-    CSX = AddDjordjevicSarkarMaterial(CSX, matPrePreg1080.name, matPrePreg1080.epsR,...
-                                           matPrePreg1080.tand, 6e9, 200e9, 'f1', 10^mMin/(2*pi));
-    CSX = AddDjordjevicSarkarMaterial(CSX, matCore7628.name, matCore7628.epsR,...
-                                           matCore7628.tand,          6e9, 200e9, 'f1', 10^mMin/(2*pi));
+    mMin = 6;
+
+    CSX = AddDjordjevicSarkarMaterial(CSX, matPrePreg1080.name,...
+                                           'fMeas', 6e9, 'epsRMeas', matPrePreg1080.epsR, 'tandMeas', matPrePreg1080.tand,...
+                                           'f1', 10^mMin/(2*pi), 'f2', 200e9, 'plotEn', 1);
+
+    CSX = AddDjordjevicSarkarMaterial(CSX, matCore7628.name,...
+                                           'fMeas', 6e9,  'epsRMeas', matCore7628.epsR, 'tandMeas', matCore7628.tand,...
+                                           'f1', 10^mMin/(2*pi), 'f2', 200e9);
   else
     CSX = AddMaterial(CSX,          matPrePreg1080.name);
     CSX = SetMaterialProperty( CSX, matPrePreg1080.name, 'Epsilon', matPrePreg1080.epsR, 'Mue', 1);
-
     CSX = AddMaterial(CSX,          matCore7628.name);
     CSX = SetMaterialProperty( CSX, matCore7628.name, 'Epsilon', matCore7628.epsR, 'Mue', 1);
   end
