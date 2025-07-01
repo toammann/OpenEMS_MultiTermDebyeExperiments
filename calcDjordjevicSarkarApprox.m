@@ -65,7 +65,7 @@ function [paramDebye, paramSarkar] = calcDjordjevicSarkarApprox(varargin)
   p.FunctionName = 'calcDjordjevicSarkarApprox';
 
   % Required Parameters
-  % Set as Parameters, checked manually too match openEMS name-value pair style
+  % Set as Parameters, checked manually to match openEMS name-value pair style
   p.addParameter('fMeas',    [], @isPositiveScalar); % Hz
   p.addParameter('epsRMeas', [], @isPositiveScalar);
   p.addParameter('tandMeas', [], @isNonNegScalar);
@@ -141,7 +141,6 @@ function [paramDebye, paramSarkar] = calcDjordjevicSarkarApprox(varargin)
   else
     % Alternative definition: Specify epsRdc (permittivity at DC)
     % calculate the lower corner frequency 'w1' from this value
-
     k = log(10)*(-tandMeas*epsRMeas - sigmaDC/(eps0*wMeasSarkar))/atan2(-w2,wMeasSarkar);
     epsInfSarkar = epsRMeas - k*log10(sqrt(w2^2 + wMeasSarkar^2)/wMeasSarkar);
 
@@ -174,10 +173,13 @@ function [paramDebye, paramSarkar] = calcDjordjevicSarkarApprox(varargin)
   mMin = m1;
   mMax = m2;
 
-  % All Debye pole locations
-  mi = mMin:1/nTermsPerDec:mMax;
+
+  %mi = mMin:1/nTermsPerDec:mMax;
+  %nTerms = length(mi);
+  % Debye pole locations - nTermsPerDec evenly spaced in log-domain
+  nTerms = ceil((mMax - mMin) * nTermsPerDec) + 1;
+  mi = linspace(mMin, mMax, nTerms);
   wi = 10.^(mi.');
-  nTerms = length(mi);
 
   % Pick frequencies to use for fit. Let´s call call them measured frequencies
   % because they are 'measured' samples of the DjordjevicSarkar model
